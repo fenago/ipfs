@@ -1,0 +1,43 @@
+<%include header%>
+<div class="container-fluid full-bg-container">
+	<br>
+	<br>
+	<div class="card card-body col-md-6 mx-auto box-shadow">
+		<div class="btn-group mx-auto" role="group" aria-label="Basic example">
+		  <a  class="btn btn-secondary text-white disabled">Sign in</a>
+		  <a  href="/register" class="btn btn-outline-info">Create an account</a>
+		</div>
+		<br>
+		<form action="" method="post">
+			<label for="email">Email Address</label>
+			<input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
+			<br>
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+			<br>
+			<button type="submit" class="btn btn-info btn-block "> Sign me in <i class="fas fa-sign-in-alt"></i> </button>
+		</form>
+			<br>
+			<a href="/forgot" class="main-color" >Forgot your password? </a>
+	</div>
+</div>
+<%
+
+		String.prototype.capitalize = function() {
+		    return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+
+	locals.info.forEach(data=>{
+	%>
+		<script>
+			swal({
+			  title:'<%=data.type.capitalize()%>',
+			  text: '<%=data.msg%>',
+			  type:'<%=data.type%>'
+			})
+		</script>
+
+	<%
+})
+%>
+<%include footer%>

@@ -1,0 +1,56 @@
+<%include header%>
+<div class="container-fluid bg-container">
+	<br>
+	<br>
+	<div class="card card-body col-md-8 mx-auto box-shadow">
+		<div class="btn-group mx-auto" role="group" aria-label="Basic example">
+		  <a  href="/login" class="btn btn-outline-info">Sign in</a>
+		  <a  class="btn btn-secondary text-white disabled">Create an account</a>
+		</div>
+		<br>
+		<form action="" method="post">
+			<label for="fname">First Name</label>
+			<input type="text" name="fname" id="fname" class="form-control" placeholder="Enter your First Name">
+			<br>
+			<label for="lname">Last Name</label>
+			<input type="text" name="lname" id="lname" class="form-control" placeholder="Enter your Last Name">
+			<!-- <br>
+			<label for="username">Choose a username</label>
+			<input type="text" name="username" id="username" class="form-control" placeholder="Choose a username"> -->
+			<br>
+			<label for="email">Email Address</label>
+			<input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
+			<br>
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" class="form-control" placeholder="At least 6 characters">
+			<br>
+			<label for="rpassword">Password confirmation</label>
+			<input type="password" name="rpassword" id="rpassword" class="form-control" placeholder="Confirm your password">
+			<br>
+			<button type="submit" class="btn btn-info btn-block"> Create an account  </button>
+			<br>
+			<div class="text-center">
+				Already have an account? <a href="/login" class = "main-color">Sign in</a>
+			</div>
+		</form>
+
+	</div>
+</div>
+<%
+	locals.info.forEach(data=>{
+		String.prototype.capitalize = function() {
+		    return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+	%>
+		<script>
+			swal({
+			  title:'<%=data.type.capitalize()%>',
+			  text: '<%=data.msg%>',
+			  type:'<%=data.type%>'
+			})
+		</script>
+
+	<%
+})
+%>
+<%include footer%>

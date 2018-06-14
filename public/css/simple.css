@@ -1,0 +1,42 @@
+.full-bg-container{
+	background: #2c3e50; 
+	background: -webkit-linear-gradient(to right, #3498db, #2c3e50); 
+	background: linear-gradient(to right, #3498db, #2c3e50); 
+	min-height: 100vh;
+}
+.box-shadow{
+
+}
+.i-up-g{
+	margin-top: -47px;
+	color: #00943D
+}
+.main-color{
+	color: teal
+}
+.main-color:hover{
+	color: teal
+}
+.bg-container{
+	background: #2c3e50; 
+	background: -webkit-linear-gradient(to right, #3498db, #2c3e50); 
+	background: linear-gradient(to right, #3498db, #2c3e50); 
+}
+.bg-nav{
+	background-color: teal
+}
+.ucase{
+	text-transform: uppercase;
+}
+.cursor{
+	cursor: pointer;
+}
+.right-only-border{
+	border : none;
+	border-right: 1px solid #BEBB9B;
+	border-radius: 0px;
+}
+.border-dark{
+	border : 2px solid #D0D5CA;
+	border-radius: 0px;
+}

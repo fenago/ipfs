@@ -1,0 +1,193 @@
+<%include header%>
+<%include nav%>
+<div class="container">
+	<br>
+	<form action="/post-files" enctype="multipart/form-data" id="form" method="post">
+		<div class="col-md-4 mx-auto">
+			<button id="choose" class="btn btn-sm btn-success  btn-block">Choose files to upload</button>
+			<input type="file" name="files" id="file" class="form-control" placeholder="Choose a file" multiple="true" hidden="true">
+			<br>
+			
+		</div>
+		<div class="col-md-11 mx-auto" style="display: none;" id="card">
+			<div class="card" >
+				<div class="card-header bg-info text-white">
+					Selected Files
+				</div>
+				<div class="card-body" id="upls"></div>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-md-6">
+							<select name="type" id="type" class="form-control">
+								<option value="encrypted">Upload Encrypted</option>
+								<option value="unencrypted">Upload Unencrypted</option>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<button class="btn btn-sm btn-danger float-right"  id="cancel">Cancel</button>
+							<button type="submit" class="btn btn-success btn-sm float-right mr-3">Upload Selected Files</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<br>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header bg-danger text-white text-center"> <i class="fas fa-lock-open"></i> <strong>My Unencrypted Files</strong></div>
+				<div class="card-body" style="max-height: 400px;overflow: auto;">
+					<%if(my_files.length>0){
+					%>
+					<%
+						my_files.forEach(data=>{
+						var fills = data.original.replace('public/files/','')
+						fills = fills.substr(10)
+							%>
+								<div class="card card-body">
+									<span>
+										File Name : <%=fills%>
+									</span>
+									<br>
+									<div class="row pl-3 pr-3">
+										<span class="text-muted">
+										<%=moment(data.date).fromNow()%>
+										</span>
+										<span class="ml-auto cursor">
+											<a href="<%=data.original.replace("public","")%>" class = "mr-3" target = "_blank" download>
+												<i class="fas fa-download"   style="color: green" title="Download this unencrypted file" data-toggle = "tooltip" data-placement = "top"></i>
+											</a>
+											<i class="fas fa-trash-alt" id="delete" data-id="<%=data.id%>" style="color: crimson" title = "Delete this file" data-toggle = "tooltip" data-placement = "top"></i>
+										</span>
+									</div>
+								</div>
+							<br>
+							<%
+						})
+						%>
+						<%
+					}else{
+					%>
+					You havent uploaded any files , please upload some to see them here
+					<%
+				}%>
+			</div>
+		</div>
+			<br>
+	</div>
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header bg-info text-white text-center"> <i class="fas fa-lock"></i> <strong>My Encrypted Files</strong></div>
+				<div class="card-body" style="max-height: 400px;overflow: auto;">
+					<%if(my_enfiles.length>0){
+					%>
+					<%
+						my_enfiles.forEach(data=>{
+						var fills = data.original.replace('public/files/','')
+						fills = fills.substr(10)
+							%>
+								<div class="card card-body">
+									<span>
+										File Name : <%=fills%>
+									</span>
+									<br>
+									<div class="row pl-3 pr-3">
+										<span class="text-muted">
+										<%=moment(data.date).fromNow()%>
+										</span>
+										<span class="ml-auto cursor">
+											<a href="<%=data.original.replace("public","")%>" class = "mr-3" target = "_blank" download>
+												<i class="fas fa-download" style="color: green" title="Download this encrypted file" data-toggle = "tooltip" data-placement = "top"></i>
+											</a>
+											<a href="/decrypt/<%=data.id%>" class = "mr-3" >
+												<i class="fas fa-unlock-alt" style="color: teal" title="Decrypt this file and download" data-toggle = "tooltip" data-placement = "top"></i>
+											</a>
+											<i class="fas fa-trash-alt" id="delete" data-id="<%=data.id%>" style="color: crimson" title = "Delete file" data-toggle = "tooltip" data-placement = "top"></i>
+										</span>
+									</div>
+								</div>
+							<br>
+							<%
+						})
+						%>
+						<%
+					}else{
+					%>
+					You havent encrypted any files , please upload some to see them here
+					<%
+				}%>
+			</div>
+		</div>
+	</div>
+	<br>
+</div>
+<script>
+	$(function(){
+		$('#choose').on('click',function(e){
+			e.preventDefault()
+			$("#file").click()
+		})
+		$('#file').on('change',function(e){
+			$('#card').show()
+			var fil = this.files
+			for(i=0;i<fil.length;i++){
+				$('#upls').append(`
+					<b>File Name : </b>${fil[i].name} <br />
+					<b>Size : </b> ${fil[i].size/1000} Kb <br />
+					<b>File Type : </b> ${fil[i].type}
+					<hr />
+					`)
+			}
+		})
+		$("#cancel").on('click',function(e){
+			e.preventDefault()
+			$('#card').hide()
+		})
+
+		$(document).on('click','#delete',function(){
+			var id = $(this).attr('data-id')
+			swal({
+				  title: 'Are you sure you want to delete this file?',
+				  type: 'error',
+				  text : 'This is permanent and cannot be recovered once deleted!',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: 'Yes, delete this!'
+				}).then((result) => {
+				  if (result.value) {
+				    window.location.href="/delete-file/"+id
+				  }
+			})
+
+		})
+
+
+
+	})
+</script>
+
+
+
+<%
+
+		String.prototype.capitalize = function() {
+		    return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+
+	locals.info.forEach(data=>{
+	%>
+		<script>
+			swal({
+			  title:'<%=data.type.capitalize()%>',
+			  html: '<%-data.msg%>',
+			  type:'<%=data.type%>'
+			})
+		</script>
+
+	<%
+})
+%>
+
+<%include footer%>
