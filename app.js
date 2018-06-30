@@ -20,19 +20,20 @@ app.use(bpraser.urlencoded({extended : true}))
 //using public folder
 app.use(express.static('public'))
 
-const exec = require('child_process').exec
-exec('ipfs daemon',(error,stdout,stderr)=>{
-	 	console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-        if (error !== null) {
-            console.log(`exec error: ${error}`);
-        }
-})
+// const exec = require('child_process').exec
+// exec('ipfs daemon',(error,stdout,stderr)=>{
+// 	 	console.log(`stdout: ${stdout}`);
+//         console.log(`stderr: ${stderr}`);
+//         if (error !== null) {
+//             console.log(`exec error: ${error}`);
+//         }
+// })
+
 
 global.ipfsconfig = {
-	host: 'localhost', 
+	host: 'ipfs.infura.io', 
 	port: 5001,            
-	proto: 'http'           
+	proto: 'https'           
 }
 //database connection
 require('./models/connection')
