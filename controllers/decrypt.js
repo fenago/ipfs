@@ -3,19 +3,9 @@ const helper = require('../helper')
 const Files = require('../models/Files')
 const fs = require('fs')
 const path = require('path')
-var encryptor = require('file-encryptor')
+const IPFSecret = require('ipfsecret'),
+    ipfsecret = new IPFSecret(ipfsconfig);
 router.get("/decrypt/:id",helper.isLogged,async(req,res)=>{
-	var decrypt = function(original, encrypted) {
-	  encryptor.decryptFile(
-	    encrypted,
-	    'public/files/decrypted/decrypted-' + original,
-	    key,
-	    function(err) {
-	      // console.log(original + ' decryption complete.');
-	    }
-	  );
-	};
-
 	var id = helper.safe(req.params.id)
 	if(isNaN(id)){
 		req.flash('info',{type : "error",msg : 'Invalid Id'})
@@ -36,11 +26,34 @@ router.get("/decrypt/:id",helper.isLogged,async(req,res)=>{
 			res.redirect('back')
 		}
 		else{
-					var fname = check.file.substr(10)
-					var todo = "/files/decrypted/decrypted-"+fname
-					decrypt(fname,check.original)
-					req.flash('info',{type : "success",msg : `File decrypted , Click <a href="${todo}" download>here</a> to download decrypted file!`})
-					res.redirect('back')
+
+			var hash = check.hash
+			ipfsecret.get(hash, check.key)
+		    .then((stream) => {stream.on('data', (obj) => {
+		        if (obj.content) {
+		            var filename = path.basename(obj.path),
+		                writeable = fs.createWriteStream('public/files/decrypted/'+check.file);
+		             var dfile = '/files/decrypted/'+check.file
+		            obj.content.pipe(writeable);
+		            obj.content.on('finish', () => {
+		                req.flash('info',{type : "success",msg : `File decrypted , Click <a href="${dfile}" download>here</a> to download your file`})
+						res.redirect('back')
+		            });
+		            obj.content.on('error', (err) => {
+		                console.log('Error: ',err);
+		            });
+		        }
+		    });})
+		    .catch(err => {
+		        console.log(err);
+		    });
+
+
+
+					// var fname = check.file.substr(10)
+					// var todo = "/files/decrypted/decrypted-"+fname
+					// decrypt(fname,check.original)
+					
 
 		}
 	}

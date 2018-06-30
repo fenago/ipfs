@@ -19,6 +19,21 @@ const bpraser = require('body-parser')
 app.use(bpraser.urlencoded({extended : true}))
 //using public folder
 app.use(express.static('public'))
+
+const exec = require('child_process').exec
+exec('ipfs daemon',(error,stdout,stderr)=>{
+	 	console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+        if (error !== null) {
+            console.log(`exec error: ${error}`);
+        }
+})
+
+global.ipfsconfig = {
+	host: 'localhost', 
+	port: 5001,            
+	proto: 'http'           
+}
 //database connection
 require('./models/connection')
 //using all routes at once
@@ -46,3 +61,5 @@ app.listen(port,(err)=>{
 		console.log("Up and running at port ",port)
 	}
 })
+
+

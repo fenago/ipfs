@@ -6,7 +6,9 @@ const filesSchema = new schema({
 	file : {type : String},
 	date : {type : Date},
 	type : {type : String},
-	original : {type : String}
+	original : {type : String},
+	hash : {type : String},
+	key : {type : String}
 
 })
 ai.initialize(mongoose.connection)

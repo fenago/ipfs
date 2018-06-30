@@ -19,7 +19,7 @@ router.get("/delete-file/:id",helper.isLogged,async(req,res)=>{
 			res.redirect('back')
 		}
 		else{
-			fs.unlinkSync(check.original)
+			// fs.unlinkSync(check.original)
 			Files.remove({$and : [{email : req.session.email},{id}]},(err,succ)=>{
 				if(err){console.log(err)}
 				if(succ){

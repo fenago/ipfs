@@ -47,16 +47,20 @@
 							%>
 								<div class="card card-body">
 									<span>
-										File Name : <%=fills%>
+										File Name : <strong><%=fills%></strong>
 									</span>
 									<br>
 									<div class="row pl-3 pr-3">
 										<span class="text-muted">
 										<%=moment(data.date).fromNow()%>
+										<br>
+										<small>
+											Ipfs Hash : <%=data.hash%>
+										</small>
 										</span>
 										<span class="ml-auto cursor">
-											<a href="<%=data.original.replace("public","")%>" class = "mr-3" target = "_blank" download>
-												<i class="fas fa-download"   style="color: green" title="Download this unencrypted file" data-toggle = "tooltip" data-placement = "top"></i>
+											<a href="https://gateway.ipfs.io/ipfs/<%=data.hash%>" class = "mr-3" target = "_blank" >
+												<i class="fas fa-eye"   style="color: green" title="View this unencrypted file" data-toggle = "tooltip" data-placement = "top"></i>
 											</a>
 											<i class="fas fa-trash-alt" id="delete" data-id="<%=data.id%>" style="color: crimson" title = "Delete this file" data-toggle = "tooltip" data-placement = "top"></i>
 										</span>
@@ -89,15 +93,19 @@
 							%>
 								<div class="card card-body">
 									<span>
-										File Name : <%=fills%>
+										File Name : <strong><%=fills%></strong>
 									</span>
 									<br>
 									<div class="row pl-3 pr-3">
 										<span class="text-muted">
 										<%=moment(data.date).fromNow()%>
+										<br>
+										<small>
+											Ipfs Hash : <%=data.hash%>
+										</small>
 										</span>
 										<span class="ml-auto cursor">
-											<a href="<%=data.original.replace("public","")%>" class = "mr-3" target = "_blank" download>
+											<a href="https://gateway.ipfs.io/ipfs/<%=data.hash%>" class = "mr-3" target = "_blank" download>
 												<i class="fas fa-download" style="color: green" title="Download this encrypted file" data-toggle = "tooltip" data-placement = "top"></i>
 											</a>
 											<a href="/decrypt/<%=data.id%>" class = "mr-3" >
