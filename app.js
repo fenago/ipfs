@@ -33,6 +33,12 @@ app.use(express.static('public'))
 global.ipfsconfig = {
 	host: 'ipfs.infura.io', 
 	port: 5001,            
+	protocol: 'https'           
+}
+
+global.ipfsconfig2 = {
+	host: 'ipfs.infura.io', 
+	port: 5001,            
 	proto: 'https'           
 }
 //database connection

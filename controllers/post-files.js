@@ -7,7 +7,7 @@ var fs = require('fs')
 const IPFS = require('ipfs-api')
 const node = new IPFS(ipfsconfig)
 const IPFSecret = require('ipfsecret'),
-    ipfsecret = new IPFSecret(ipfsconfig);
+    ipfsecret = new IPFSecret(ipfsconfig2);
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/files/')

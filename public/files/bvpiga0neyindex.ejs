@@ -1,0 +1,121 @@
+<%include header%>
+<%include nav%>
+
+<div class="container-fluid">
+	<br>
+	<strong>
+		<h3 class="text-center">
+			Meals
+		</h3>
+	</strong>
+	<br>
+	<div class="row">
+		<div class="col-md-9">
+			<%if(meals.length>0){
+		%>
+		<div class="row">
+			<%
+				meals.forEach((data,inp)=>{
+				%>
+					<div class="col-md-4">
+						<div class="card card-body text-center">
+							<strong class="text-muted">
+								#MEAL<%=data.id%>
+							</strong>
+							<hr>
+							<h3>
+								<strong>
+									<%=data.meal%>
+								</strong>
+							</h3>
+							<strong>
+								<h4>
+									$<%=data.price%>
+								</h4>
+							</strong>
+							<p>
+							Description :	<%=data.description%>
+							</p>
+							<span>
+								<%if(locals.user && css[inp]!==null){%>
+								<a href="/rc/<%=data.id%>"><i class="fas fa-cart-plus cursor" id="cart"  data-toggle="tooltip" data-placement="top" title="Remove from cart" data-id="<%=data.id%>" style="color:crimson "></i></a>
+								
+								<%}else{%>
+									<a href="/ac/<%=data.id%>"><i class="fas fa-cart-plus cursor" id="cart"  data-toggle="tooltip" data-placement="top" title="Add to cart" data-id="<%=data.id%>" style="color:teal "></i></a>
+								<%}%>
+								
+							</span>
+						</div>
+						<br>
+					</div>
+				<%
+				})
+			%>
+		</div>
+		<%
+	}
+	else{
+		
+		%>
+			<div class="alert alert-info">
+					No Meals are available currently !! Please check back later
+			</div>
+		<%
+
+	}
+	%>
+		</div>
+		<div class="col-md-3">
+			<div class="card">
+				<div class="card-header bg-info text-white text-center">
+					<strong>My Cart</strong>
+				</div>
+				<div class="card-body">
+					<%
+						if(my_cart.length>0){
+							my_cart.forEach(data=>{
+							%>
+								<a href="/meal-detail/<%=data.mid%>" class = "main-color"><b>#MEAL<%=data.mid%> :</b></a> $<%=data.price%>
+								<a href="/rc/<%=data.mid%>" class="pl-5"><i class="fas fa-cart-plus cursor " id="cart"  data-toggle="tooltip" data-placement="top" title="Remove from cart" data-id="<%=data.mid%>" style="color:crimson "></i></a>
+								<hr>
+							<%
+						})	
+						%>
+						<b>Total</b> : $<%=my_total%>
+						<%	
+						}
+					else{
+					%>
+						Your cart is empty
+					<%
+				}
+					%>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%
+	locals.info.forEach(ds=>{
+		String.prototype.capitalize = function() {
+		    return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+	%>
+		<script>
+			swal({
+			  title:'<%=ds.type.capitalize()%>',
+			  html: '<%=ds.msg%>',
+			  type:'<%=ds.type%>',
+			  position : 'top-right',
+			  showConfirmButton : !<%=ds.top%>,
+			  width : '250px',
+			  timer : '1500'
+			})
+		</script>
+
+	<%
+})
+%>
+<%include footer%>
