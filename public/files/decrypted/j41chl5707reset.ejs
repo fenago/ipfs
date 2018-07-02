@@ -1,0 +1,40 @@
+<%include header%>
+<div class="container-fluid">
+	<br>
+	<h3 class="text-center">
+		Reset your password
+	</h3>
+	<br>
+	<div class="card card-body col-md-6 mx-auto">
+		<form action="" method="post">
+			<label for="email">Your Email Address </label>
+			<input type="email" name="email" id="email" class="form-control" readonly="true" value="<%=email%>">
+			<br>
+			<label for="password">Enter new password</label>
+			<input type="password" name="password" id="password" class="form-control" placeholder="Enter new password, at least 6 characters">
+			<br>
+			<label for="rpassword">Confirm your password</label>
+			<input type="password" name="rpassword" id="rpassword" class="form-control" placeholder="Confirm your password">
+			<br>
+			<input type="submit" value="Change Password" class="btn btn-success">
+		</form>
+	</div>
+</div>
+<%
+	locals.info.forEach(data=>{
+		String.prototype.capitalize = function() {
+		    return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+	%>
+		<script>
+			swal({
+			  title:'<%=data.type.capitalize()%>',
+			  text: '<%=data.msg%>',
+			  type:'<%=data.type%>'
+			})
+		</script>
+
+	<%
+})
+%>
+<%include footer%>

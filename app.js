@@ -55,7 +55,7 @@ global.emailpassword = 'Delta Tech Dipesh ####'
 
 
 //key for encrypting
-global.key = 'sh*dfhskh*YY@OYTGJFHBF<BG*TYHKFBAOWOY@#@($^@(YhJHry8whkOyr3ykhHoYR#hIHO@Y)YHFBjSKWGOr3y8oih&(^*%&^&gjGFIUW*fsjbgrei;dhsowea.sfissg'
+global.key = 'super secret key'
 
 
 

@@ -4,7 +4,7 @@ const Files = require('../models/Files')
 const fs = require('fs')
 const path = require('path')
 const IPFSecret = require('ipfsecret'),
-    ipfsecret = new IPFSecret(ipfsconfig);
+    ipfsecret = new IPFSecret(ipfsconfig2);
 router.get("/decrypt/:id",helper.isLogged,async(req,res)=>{
 	var id = helper.safe(req.params.id)
 	if(isNaN(id)){
@@ -28,8 +28,9 @@ router.get("/decrypt/:id",helper.isLogged,async(req,res)=>{
 		else{
 
 			var hash = check.hash
-			ipfsecret.get(hash, check.key)
-		    .then((stream) => {stream.on('data', (obj) => {
+			var gkey = check.key
+			ipfsecret.get(hash, gkey)
+		    .then((stream) => { stream.on('data', (obj) => {
 		        if (obj.content) {
 		            var filename = path.basename(obj.path),
 		                writeable = fs.createWriteStream('public/files/decrypted/'+check.file);
