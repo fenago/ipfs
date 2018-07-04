@@ -1,6 +1,9 @@
 #Installing and running the project
-
 #Dependencies
+
+** For running this program , you need to  install Nodejs v8+ and MongoDB v3+
+
+** Follow the following steps to install Nodejs and MongoDB for ubuntu , for other operating system , kindly please look for the official docs!!
 
 1. Install Nodejs
 	For ubuntu :  Open your terminal and type : 
@@ -29,10 +32,15 @@
 
 #Steps to run app
 
-Step 1 : git clone https://github.com/fenago/ipfs
+Step 0 : Open your terminal
 
-Step 2 : cd ipfs
+Step 1 :  Type and press enter : 
+				git clone https://github.com/fenago/ipfs
 
-Step 3 : node app.js
+Step 2 : Type and press enter : 
+				cd ipfs
+
+Step 3 : Type and press enter : 
+				node app.js
 
 Step 4 : go to http://localhost:3000 and you will see the project running
