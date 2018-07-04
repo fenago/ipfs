@@ -9,7 +9,8 @@ const userSchema = new schema({
 	isVerified : {type : Boolean , default : false},
 	vcode : {type : String},
 	fname : {type : String},
-	lname : {type : String}
+	lname : {type : String},
+	isAdmin : {type : Boolean,default : false}
 
 })
 ai.initialize(mongoose.connection)

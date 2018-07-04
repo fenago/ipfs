@@ -1,13 +1,18 @@
 const router = require('express').Router()
 const helper = require("../helper")
 const Files = require('../models/Files')
+const Keys = require('../models/Keys')
 const path = require('path')
 const multer = require('multer')
 var fs = require('fs')
+
+
 const IPFS = require('ipfs-api')
 const node = new IPFS(ipfsconfig)
 const IPFSecret = require('ipfsecret'),
     ipfsecret = new IPFSecret(ipfsconfig2);
+
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/files/')
@@ -16,8 +21,19 @@ var storage = multer.diskStorage({
     cb(null, Math.random().toString(36).substr(2, 10)+file.originalname)
   }
 })
+
+
 var upload = multer({ storage })
 router.post('/post-files',upload.array('files', 120),helper.isLogged,async (req,res)=>{
+	//key for encrypting
+	var keyt = await Keys.findOne({}).sort('-id')
+	var key
+	if(keyt==null){
+		key = "Super secret key"
+	}
+	else{
+		key = keyt.key
+	}
 	var type = helper.safe(req.body.type)
 	if(type == "unencrypted"){
 		req.files.forEach((datas,i)=>{

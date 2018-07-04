@@ -21,23 +21,5 @@
 			<a href="/forgot" class="main-color" >Forgot your password? </a>
 	</div>
 </div>
-<%
 
-		String.prototype.capitalize = function() {
-		    return this.charAt(0).toUpperCase() + this.slice(1);
-		}
-
-	locals.info.forEach(data=>{
-	%>
-		<script>
-			swal({
-			  title:'<%=data.type.capitalize()%>',
-			  text: '<%=data.msg%>',
-			  type:'<%=data.type%>'
-			})
-		</script>
-
-	<%
-})
-%>
 <%include footer%>

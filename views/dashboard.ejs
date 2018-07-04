@@ -46,10 +46,17 @@
 						fills = fills.substr(10)
 							%>
 								<div class="card card-body">
+									<%if(data.assign){
+									%>
+									<strong>[ASSIGNED FILE]</strong>
+									<small class="text-muted">Assigned by : <%=data.by%></small>
+									<br>
+									<%
+								}%>
 									<span>
 										File Name : <strong><%=fills%></strong>
 									</span>
-									<br>
+									
 									<div class="row pl-3 pr-3">
 										<span class="text-muted">
 										<%=moment(data.date).fromNow()%>
@@ -92,10 +99,17 @@
 						fills = fills.substr(10)
 							%>
 								<div class="card card-body">
+									<%if(data.assign){
+									%>
+									<strong>[ASSIGNED FILE]</strong>
+									<small class="text-muted">Assigned by : <%=data.by%></small>
+									<br>
+									<%
+								}%>
 									<span>
 										File Name : <strong><%=fills%></strong>
 									</span>
-									<br>
+									
 									<div class="row pl-3 pr-3">
 										<span class="text-muted">
 										<%=moment(data.date).fromNow()%>
@@ -178,24 +192,5 @@
 
 
 
-<%
-
-		String.prototype.capitalize = function() {
-		    return this.charAt(0).toUpperCase() + this.slice(1);
-		}
-
-	locals.info.forEach(data=>{
-	%>
-		<script>
-			swal({
-			  title:'<%=data.type.capitalize()%>',
-			  html: '<%-data.msg%>',
-			  type:'<%=data.type%>'
-			})
-		</script>
-
-	<%
-})
-%>
 
 <%include footer%>

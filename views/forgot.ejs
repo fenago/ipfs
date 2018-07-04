@@ -14,21 +14,5 @@
 		</form>
 	</div>
 </div>
-<%
-	locals.info.forEach(data=>{
-		String.prototype.capitalize = function() {
-		    return this.charAt(0).toUpperCase() + this.slice(1);
-		}
-	%>
-		<script>
-			swal({
-			  title:'<%=data.type.capitalize()%>',
-			  html: '<%-data.msg%>',
-			  type:'<%=data.type%>'
-			})
-		</script>
 
-	<%
-})
-%>
 <%include footer%>

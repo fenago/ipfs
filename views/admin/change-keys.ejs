@@ -1,0 +1,18 @@
+<%include ../header%>
+<%include nav%>
+<br>
+<div class="container">
+	<h3 class="text-center">
+		<strong>Change Encryption/Decryption Keys</strong>
+	</h3>
+	<br>
+	<div class="card card-body">
+	<form action="" method="post" >
+		<label for="key">Enter your new key</label>
+		<input type="text" name="key" id="key" required="true" class="form-control" value="<%if(key!==null){%><%=key.key%><%}else{%>Super secret key<%}%>" placeholder="Enter your new key">
+		<br>
+		<input type="submit" value="Submit" class="btn btn-sm btn-success">
+	</form>
+	</div>
+</div>
+<%include ../footer%>

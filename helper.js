@@ -1,5 +1,6 @@
 const xss = require('xss')
 const sanitize = require('mongo-sanitize')
+const User = require('./models/User')
 var safe = (unsafe)=>{
 	var safed = xss(sanitize(unsafe))
 	return safed
@@ -14,6 +15,26 @@ const isLogged = (req,res,next)=>{
 		res.redirect('/login')
 	}
 }
+
+const isAdmin = async (req,res,next)=>{
+	if(req.session.user){
+		var cu = await User.findOne({email : req.session.user.email})
+		if(cu.isAdmin){
+			res.locals.user = req.session.user
+			next()
+		}
+		else{
+			req.flash('info',{type : 'error',msg : 'You must be admin to continue!'})
+			res.redirect('back')
+		}
+	}
+	else{
+		req.flash('info',{type : 'error',msg : 'You must be logged in to continue!'})
+		res.redirect('/login')
+	}
+}
+
+
 const notLogged = (req,res,next)=>{
 	if(!req.session.user){
 		next()
@@ -51,5 +72,6 @@ module.exports = {
 	safe,
 	isLogged,
 	notLogged,
-	send_mail
+	send_mail,
+	isAdmin
 }

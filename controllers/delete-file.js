@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const helper = require('../helper')
 const Files = require('../models/Files')
+const Assign = require('../models/Assign')
 const fs = require('fs')
 router.get("/delete-file/:id",helper.isLogged,async(req,res)=>{
 	var id = helper.safe(req.params.id)
@@ -19,6 +20,14 @@ router.get("/delete-file/:id",helper.isLogged,async(req,res)=>{
 			res.redirect('back')
 		}
 		else{
+			if(check.assign){
+				Assign.remove({$and : [{fid : check.aid},{email : req.session.email}]},(err,succ)=>{
+					if(err){console.log(err)}
+					if(succ){
+						
+					}
+				})
+			}
 			// fs.unlinkSync(check.original)
 			Files.remove({$and : [{email : req.session.email},{id}]},(err,succ)=>{
 				if(err){console.log(err)}

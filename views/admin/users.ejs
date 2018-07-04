@@ -1,0 +1,95 @@
+<%include ../header%>
+<%include nav%>
+<div class="container">
+	<br>
+	<h3 class="text-center">
+		<strong>Users Management System</strong>
+	</h3>
+	<br>
+	<div class="table-responsive">
+		<table class="table table-bordered table-stripped" id="tbl2">
+			<thead>
+				<tr>
+					<th>SN</th>
+					<th>Email</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Joined</th>
+					<th>is Admin?</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%users.forEach((data,i)=>{
+				%>
+				<tr>
+					<td><%=i+1%></td>
+					<td><%=data.email%></td>
+					<td><%=data.fname%></td>
+					<td><%=data.lname%></td>
+					<td><%=data.date.toLocaleDateString()%></td>
+					<td><%=data.isAdmin%></td>
+					<td><i class="fas fa-pencil-alt fa-2x" id="edit" data-id = "<%=data.id%>" data-email="<%=data.email%>" data-fname = "<%=data.fname%>" data-lname = "<%=data.lname%>" data-isAdmin = "<%=data.isAdmin%>" style="color: green;cursor: pointer;"></i></td>
+				</tr>
+				<%
+			})%>
+			</tbody>
+		</table>
+	</div>
+</div>
+<script>
+	$(document).on('click','#edit',function(){
+		var id = $(this).attr('data-id')
+		var email = $(this).attr('data-email')
+		var fname = $(this).attr('data-fname')
+		var lname = $(this).attr('data-lname')
+		var isAdmin = $(this).attr('data-isAdmin')
+		$("#email").val(email)
+		$("#fname").val(fname)
+		$("#lname").val(lname)
+		if(isAdmin == false || isAdmin == "false"){
+			$('#no').select()
+		}
+		$("#isAdmin").val(isAdmin)
+		$("#editModal").modal('show')
+	})
+</script>
+<!-- edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post">
+        	<label for="email">Email Address</label>
+        	<input type="email" name="email" id="email" class="form-control" readonly="true" required="true">
+        	<br>
+        	<label for="fname">First Name</label>
+        	<input type="text" name="fname" id="fname" class="form-control" required="true">
+        	<br>
+        	<label for="lname">Last Name</label>
+        	<input type="text" name="lname" id="lname" class="form-control" required="true">
+        	<br>
+        	<label for="isAdmin">Is this user an Admin ?</label>
+        	<select name="isAdmin" id="isAdmin" class="form-control">
+        		<option value="true" id="yes">Yes</option>
+        		<option value="false" id="no">No</option>
+        	</select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-success btn-sm">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+	$("#tbl2").DataTable()
+</script>
+<%include ../footer%>

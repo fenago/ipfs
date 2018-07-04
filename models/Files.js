@@ -8,7 +8,11 @@ const filesSchema = new schema({
 	type : {type : String},
 	original : {type : String},
 	hash : {type : String},
-	key : {type : String}
+	key : {type : String},
+	admin : {type : Boolean  , default : false},
+	assign : {type : Boolean,default : false},
+	by : String,
+	aid : Number
 
 })
 ai.initialize(mongoose.connection)

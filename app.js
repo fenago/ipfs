@@ -54,8 +54,6 @@ global.emailusername = 'deltatechdps@gmail.com'
 global.emailpassword = 'Delta Tech Dipesh ####'
 
 
-//key for encrypting
-global.key = 'super secret key'
 
 
 

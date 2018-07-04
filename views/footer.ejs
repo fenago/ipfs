@@ -1,2 +1,21 @@
+<%
+
+		String.prototype.capitalize = function() {
+		    return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+
+	locals.info.forEach(data=>{
+	%>
+		<script>
+			swal({
+			  title:'<%=data.type.capitalize()%>',
+			  html: '<%-data.msg%>',
+			  type:'<%=data.type%>'
+			})
+		</script>
+
+	<%
+})
+%>
 </body>
 </html>
